@@ -5,6 +5,7 @@ services:
 - mongodb
 before_script:
 - cd example && npm install
+- cd ..
 - npm install -g grunt-cli
 deploy:
   provider: npm

@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- 0.10
+services:
+- mongodb
+before_script:
+- npm install -g grunt-cli
+deploy:
+  provider: npm
+  email: chrisenytc@gmail.com
+  api_key:
+    secure: IKA9IzCT0kxtk8rkJ0d9p2CDvJFSu/Y2JtJMBa9oJsRuP9i+40IQfjht5jfh3bC57koQGr4INmk8oqg+9MrKkzQVvvQ6JgBBGzHkUxBZKc+bQbLWRpJr6v9OxdUj4RSJrWFuVluspBc7zn5Msw6y7ycOWbe1ze+xEPM5PYZ2wuU=
+  on:
+    tags: true
+    repo: chrisenytc/bella
+    branch: 'master'

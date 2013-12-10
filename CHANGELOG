@@ -1,4 +1,8 @@
+v0.2.0:
+  date: 2013-12-10
+  changes:
+    - Removing implementation of user control.
 v0.1.0:
-  date: 2013-12-5
+  date: 2013-12-05
   changes:
     - Initial release.

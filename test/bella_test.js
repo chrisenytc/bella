@@ -34,8 +34,6 @@ describe('bella module', function () {
       request
         .post('/create')
         .send({
-          username: 'livia',
-          password: '19082013',
           terminal: true
         })
         .set('Accept', 'application/json')

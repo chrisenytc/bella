@@ -10,7 +10,7 @@ exports.index = function(req, res){
 };
 
 exports.create = function(req, res) {
-  bella.create('example.com', req.ip, req.body.username, req.body.password, req.body.terminal, function(err, access_token) {
+  bella.create('example.com', req.ip, req.body.terminal, function(err, access_token) {
      res.json({msg: 'Auth Key Created: '+ access_token});
   });
 };

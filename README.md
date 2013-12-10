@@ -36,7 +36,7 @@ app.configure(function() {
 });
 ```
 
-#### .create(domain, ip, username, password, terminal, cb)
+#### .create(domain, ip, terminal, cb)
 
 **Parameter**: `domain`
 **Type**: `String`
@@ -45,14 +45,6 @@ app.configure(function() {
 **Parameter**: `ip`
 **Type**: `String`
 **Example**: `127.0.0.1`
-
-**Parameter**: `username`
-**Type**: `String`
-**Example**: `livia`
-
-**Parameter**: `password`
-**Type**: `String`
-**Example**: `19082013`
 
 **Parameter**: `terminal`
 **Type**: `Boolean`
@@ -69,7 +61,7 @@ The 'create' is method responsible for creating the access_tokens to be used by 
 How to use this method
 
 ```javascript
-bella.create('example.com', '127.0.0.1', 'chrisenytc', '19082013', true, function(err, access_token) {
+bella.create('example.com', '127.0.0.1', true, function(err, access_token) {
    console.log('Token: ' + access_token);
 });
 ```

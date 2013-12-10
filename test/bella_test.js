@@ -39,7 +39,7 @@ describe('bella module', function () {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200, {
-          msg: 'Auth Key Created: c9b5baec6a091136ff6450ef43303bb8b1ab0970615134765f2c537ba00d808c8a8deb9564e756bd6f692cc429647afff4b289a47ec9562574473c5d7aef8b6f'
+          msg: 'Auth Key Created: d948a41098fc2aa79c24864d8978c4360cbef88837c4117957173626f3f50557520bcb6dfcdac6717692b2ad2545bcbaae6b3b927575a1cc5b667b23b3641d6c'
         }, done);
     });
   });
@@ -58,11 +58,11 @@ describe('bella module', function () {
 
     it('should respond with status code 200 and authentication success', function (done) {
       request
-        .get('/users?access_token=c9b5baec6a091136ff6450ef43303bb8b1ab0970615134765f2c537ba00d808c8a8deb9564e756bd6f692cc429647afff4b289a47ec9562574473c5d7aef8b6f')
+        .get('/users?access_token=d948a41098fc2aa79c24864d8978c4360cbef88837c4117957173626f3f50557520bcb6dfcdac6717692b2ad2545bcbaae6b3b927575a1cc5b667b23b3641d6c')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200, {
-          token: 'Access Token: c9b5baec6a091136ff6450ef43303bb8b1ab0970615134765f2c537ba00d808c8a8deb9564e756bd6f692cc429647afff4b289a47ec9562574473c5d7aef8b6f'
+          token: 'Access Token: d948a41098fc2aa79c24864d8978c4360cbef88837c4117957173626f3f50557520bcb6dfcdac6717692b2ad2545bcbaae6b3b927575a1cc5b667b23b3641d6c'
         }, done);
     });
   });
@@ -72,12 +72,12 @@ describe('bella module', function () {
       request
         .del('/remove')
         .send({
-          access_token: 'c9b5baec6a091136ff6450ef43303bb8b1ab0970615134765f2c537ba00d808c8a8deb9564e756bd6f692cc429647afff4b289a47ec9562574473c5d7aef8b6f'
+          access_token: 'd948a41098fc2aa79c24864d8978c4360cbef88837c4117957173626f3f50557520bcb6dfcdac6717692b2ad2545bcbaae6b3b927575a1cc5b667b23b3641d6c'
         })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200, {
-          msg: 'Auth Key Deleted: c9b5baec6a091136ff6450ef43303bb8b1ab0970615134765f2c537ba00d808c8a8deb9564e756bd6f692cc429647afff4b289a47ec9562574473c5d7aef8b6f'
+          msg: 'Auth Key Deleted: d948a41098fc2aa79c24864d8978c4360cbef88837c4117957173626f3f50557520bcb6dfcdac6717692b2ad2545bcbaae6b3b927575a1cc5b667b23b3641d6c'
         }, done);
     });
   });

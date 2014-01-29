@@ -16,7 +16,7 @@ app.configure(function() {
 
 ## Documentation
 
-#### .init(mongoose, conn)
+#### .init(mongoose, conn, usersList)
 
 **Parameter**: `mongoose`
 **Type**: `Object`

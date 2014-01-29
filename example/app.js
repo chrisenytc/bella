@@ -22,7 +22,7 @@ function isDev() {
   }
 }
 
-var db = mongoose.connect('mongodb://cloud.enytc.com/belladb', function(err){
+var db = mongoose.connect('mongodb://localhost/belladb', function(err){
   if(err) {
     throw err;
   }

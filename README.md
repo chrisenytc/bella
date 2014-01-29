@@ -9,7 +9,7 @@ Install the module with: `npm install bella`
 var bella = require('bella');
 //Express.js
 app.configure(function() {
-  app.use(bella.init(mongoose, conn));
+  app.use(bella.init(mongoose, conn, [{username: 'bella', password: 'test'}]));
   app.use(bella.authenticate());
 });
 ```
@@ -26,17 +26,21 @@ app.configure(function() {
 **Type**: `Object`
 **Example**: `var conn = mongoose.connect('mongodb://localhost/testdb');`
 
+**Parameter**: `usersList`
+**Type**: `JSON Object`
+**Example**: `[{username: 'bella', password: 'test'}]`
+
 The 'init' is method responsible for initiating the module and set the Schema and create a model to be used by other methods.
 
 How to use this method
 
 ```javascript
 app.configure(function() {
-  app.use(bella.init(mongoose, conn));
+  app.use(bella.init(mongoose, conn, [{username: 'bella', password: 'test'}]));
 });
 ```
 
-#### .create(domain, ip, terminal, cb)
+#### .create(domain, ip, cb)
 
 **Parameter**: `domain`
 **Type**: `String`
@@ -46,22 +50,16 @@ app.configure(function() {
 **Type**: `String`
 **Example**: `127.0.0.1`
 
-**Parameter**: `terminal`
-**Type**: `Boolean`
-**Example**: `true`
-
 **Parameter**: `cb`
 **Type**: `Function`
 **Example**: `function(err, access_token) {};`
 
 The 'create' is method responsible for creating the access_tokens to be used by the authentication system.
 
-**INFO:** If the terminal option is passed as `true` then users will only be able to access the API using the access_token.
-
 How to use this method
 
 ```javascript
-bella.create('example.com', '127.0.0.1', true, function(err, access_token) {
+bella.create('example.com', '127.0.0.1', function(err, access_token) {
    console.log('Token: ' + access_token);
 });
 ```
@@ -111,7 +109,7 @@ Please submit all issues and pull requests to the [chrisenytc/bella](http://gith
 If you have any problem or suggestion please open an issue [here](https://github.com/chrisenytc/bella/issues).
 
 ## License
-Copyright (c) 2013 Christopher EnyTC
+Copyright (c) 2014 Christopher EnyTC
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

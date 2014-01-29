@@ -12,7 +12,17 @@ var bella = require('../lib/bella');
 
 var app = express();
 
-var db = mongoose.connect('mongodb://localhost/belladb', function(err){
+//
+function isDev() {
+  if('development' === app.get('env')) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+var db = mongoose.connect('mongodb://cloud.enytc.com/belladb', function(err){
   if(err) {
     throw err;
   }
@@ -27,7 +37,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(bella.init(mongoose, db));
+app.use(bella.init(mongoose, db, [{username: 'chris', password: 123}, {username: 'bella', password: 'test'}]));
 app.use(app.router);
 
 // development only
@@ -47,13 +57,3 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 
 exports = module.exports = server;
-
-//
-function isDev() {
-  if('development' === app.get('env')) {
-    return true;
-  }
-  else {
-    return false;
-  }
-};

@@ -2,7 +2,7 @@
  * bella
  * https://github.com/chrisenytc/bella
  *
- * Copyright (c) 2013 Christopher EnyTC
+ * Copyright (c) 2014 Christopher EnyTC
  * Licensed under the MIT license.
  */
 
@@ -33,9 +33,7 @@ describe('bella module', function () {
     it('should create a new user and responde with status code 200', function (done) {
       request
         .post('/create')
-        .send({
-          terminal: true
-        })
+        .send({ip: '127.0.0.1', domain: 'example.com'})
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200, {
@@ -45,6 +43,39 @@ describe('bella module', function () {
   });
   //Describe #authenticate
   describe('#authenticate()', function () {
+    //With basic auth
+
+    //Bad Authentication
+    it('should respond with status code 401 and authentication error', function (done) {
+      request
+        .get('/users?username=notlogged&password=test')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(401, {
+          error: 'Bad Authentication. You do not have permission to access the API.'
+        }, done);
+    });
+
+    it('should respond with status code 200 and authentication success', function (done) {
+      request
+        .get('/users?username=bella&password=test')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, {
+          token: 'Access Token: undefined'
+        }, done);
+    });
+
+    it('should respond with status code 200 and authentication success', function (done) {
+      request
+        .get('/users?username=chris&password=123')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, {
+          token: 'Access Token: undefined'
+        }, done);
+    });
+
     //Bad Authentication
     it('should respond with status code 401 and authentication error', function (done) {
       request

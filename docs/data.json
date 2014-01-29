@@ -2,7 +2,7 @@
     "project": {
         "name": "Bella API",
         "description": "Bella API: An API Authentication for node.js",
-        "version": "0.1.0",
+        "version": "0.3.0",
         "url": "https://github.com/chrisenytc/bella"
     },
     "files": {
@@ -27,16 +27,16 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "lib/bella.js",
-            "line": 17
+            "line": 18
         }
     },
     "classitems": [
         {
             "file": "lib/bella.js",
-            "line": 25,
+            "line": 42,
             "description": "Method responsible for initiating the module and set the Schema and create a model to be used by other methods.",
             "example": [
-                "\n\n    app.configure(function() {\n      app.use(bella.init(mongoose, conn));\n    });"
+                "\n\n    app.configure(function() {\n      app.use(bella.init(mongoose, conn, [{username: 'bella', password: 'test'}]));\n    });"
             ],
             "itemtype": "method",
             "name": "init",
@@ -50,6 +50,11 @@
                     "name": "conn",
                     "description": "A mongoose connection",
                     "type": "Object"
+                },
+                {
+                    "name": "usersList",
+                    "description": "A list of authorized users",
+                    "type": "Object"
                 }
             ],
             "return": {
@@ -60,10 +65,10 @@
         },
         {
             "file": "lib/bella.js",
-            "line": 83,
+            "line": 90,
             "description": "Method responsible for creating the access_tokens to be used by the authentication system",
             "example": [
-                "\n\n    bella.create('example.com', '127.0.0.1', 'chrisenytc', '19082013', true, function(err, access_token) {\n      console.log('Token: ' + access_token);\n    });"
+                "\n\n    bella.create('example.com', '127.0.0.1', function(err, access_token) {\n      console.log('Token: ' + access_token);\n    });"
             ],
             "itemtype": "method",
             "name": "create",
@@ -79,21 +84,6 @@
                     "type": "String"
                 },
                 {
-                    "name": "username",
-                    "description": "A new username",
-                    "type": "String"
-                },
-                {
-                    "name": "password",
-                    "description": "A new password",
-                    "type": "String"
-                },
-                {
-                    "name": "terminal",
-                    "description": "A new terminal option",
-                    "type": "Boolean"
-                },
-                {
                     "name": "cb",
                     "description": "A callback with the error and a new access_token",
                     "type": "Function"
@@ -107,7 +97,7 @@
         },
         {
             "file": "lib/bella.js",
-            "line": 135,
+            "line": 134,
             "description": "Method responsible for removing users",
             "example": [
                 "\n\n    bella.remove('YOUR ACCESS TOKEN', function(err, access_token) {\n      console.log('Token: ' + access_token + 'Deleted');\n    });"
@@ -134,7 +124,7 @@
         },
         {
             "file": "lib/bella.js",
-            "line": 173,
+            "line": 172,
             "description": "Method responsible for authenticating access the API.\nOnly users with Access Token, Domain, IP, Username and Password authenticated can access the API.",
             "example": [
                 "\n\n    app.configure(function() {\n      app.use(bella.init(mongoose, conn));\n      app.use(bella.authenticate());\n    });\n\n    //OR\n\n    app.get('/users', bella.authenticate(), ctrl);"

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.1.0</em>
+            <em>API Docs for: 0.3.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -90,7 +90,7 @@
  * bella
  * https://github.com/chrisenytc/bella
  *
- * Copyright (c) 2013 Christopher EnyTC
+ * Copyright (c) 2014 Christopher EnyTC
  * Licensed under the MIT license.
  */
 
@@ -101,10 +101,27 @@
  */
 
 var nina = require(&#x27;nina&#x27;);
+var users = [];
 
 /**
 @class Bella
  */
+
+/*
+ * Private Methods
+ */
+
+function inUsersList(username, password) {
+
+  var result;
+
+  for (var u in users) {
+    if (String(users[u].username) === String(username) &amp;&amp; String(users[u].password) === String(password)) {
+      result = true;
+    }
+  }
+  return result;
+}
 
 /*
  * Public Methods
@@ -116,16 +133,17 @@ var nina = require(&#x27;nina&#x27;);
  * @example
  *
  *     app.configure(function() {
- *       app.use(bella.init(mongoose, conn));
+ *       app.use(bella.init(mongoose, conn, [{username: &#x27;bella&#x27;, password: &#x27;test&#x27;}]));
  *     });
  *
  * @method init
  * @param {Object} mongoose Instance of Mongoose
  * @param {Object} conn A mongoose connection
+ * @param {Object} usersList A list of authorized users
  * @return {Function} Returns a middleware
  */
 
-exports.init = function init(mongoose, conn) {
+exports.init = function init(mongoose, conn, usersList) {
   //Create Mongoose Schema
   var Schema = mongoose.Schema;
   //Create Mongoose Model
@@ -138,26 +156,15 @@ exports.init = function init(mongoose, conn) {
       type: String,
       required: true
     },
-    username: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    password: {
-      type: String,
-      required: true
-    },
     access_token: {
       type: String,
       required: true,
       unique: true
-    },
-    terminal: {
-      type: Boolean,
-      required: true,
-      default: false
     }
   });
+
+  //set Users
+  users = usersList || [];
 
   //Create a Instance of Mongoose Model and parse to methods
   this.Model = conn.model(&#x27;Bella&#x27;, bellaSchema);
@@ -173,35 +180,27 @@ exports.init = function init(mongoose, conn) {
  *
  * @example
  *
- *     bella.create(&#x27;example.com&#x27;, &#x27;127.0.0.1&#x27;, &#x27;chrisenytc&#x27;, &#x27;19082013&#x27;, true, function(err, access_token) {
+ *     bella.create(&#x27;example.com&#x27;, &#x27;127.0.0.1&#x27;, function(err, access_token) {
  *       console.log(&#x27;Token: &#x27; + access_token);
  *     });
  *
  * @method create
  * @param {String} domain A new Domain
  * @param {String} ip A new Ip
- * @param {String} username A new username
- * @param {String} password A new password
- * @param {Boolean} terminal A new terminal option
  * @param {Function} cb A callback with the error and a new access_token
  * @return {Function} Returns a callback
  */
 
-exports.create = function create(domain, ip, username, password, terminal, cb) {
+exports.create = function create(domain, ip, cb) {
   //Fallback
   cb = cb || function () {};
-  //Fallback terminal options
-  terminal = terminal || false;
   //Make a new access_token with this data
-  var access_token = nina.generate(null, domain, ip, 19082013);
+  var access_token = nina.generate(null, domain, ip, 19092013);
   //Create new User with this data
   var user = new this.Model({
     domain: domain,
     ip: ip,
-    username: username,
-    password: password,
-    access_token: access_token,
-    terminal: terminal
+    access_token: access_token
   });
   //Save this user in database
   try {
@@ -292,31 +291,27 @@ exports.authenticate = function authenticate() {
         if (err) {
           throw err;
         }
-        //Check if doc is a JSON Object
-        if (doc) {
-          //Check if the terminal options is enabled on document
-          if (doc.terminal) {
-            //Check if the authentication data
-            if (req.query.access_token !== doc.access_token) {
-              //User do not have access
-              throw new Error(&#x27;Bad Authentication. You do not have permission to access the API.&#x27;);
-            } else {
-              //Access granted
-              next();
-            }
+        //Check if this requests is a access_token request
+        if (req.query.access_token) {
+          //Check if the authentication data
+          if (req.domain !== doc.domain &amp;&amp; req.ip !== doc.ip &amp;&amp; req.query.access_token !== doc.access_token) {
+            //User do not have access
+            throw new Error(&#x27;Bad Authentication. You do not have permission to access the API.&#x27;);
           } else {
-            //Check if the authentication data
-            if (req.domain !== doc.domain &amp;&amp; req.ip !== doc.ip &amp;&amp; req.query.access_token !== doc.access_token) {
-              //User do not have access
-              throw new Error(&#x27;Bad Authentication. You do not have permission to access the API.&#x27;);
-            } else {
-              //Access granted
-              next();
-            }
+            //Access granted
+            next();
           }
         } else {
-          throw new Error(&#x27;Bad Authentication. You do not have permission to access the API.&#x27;);
+          //Check for the basic auth login
+          if (inUsersList(req.query.username, req.query.password)) {
+            //Access granted
+            next();
+          } else {
+            //User do not have access
+            throw new Error(&#x27;Bad Authentication. You do not have permission to access the API.&#x27;);
+          }
         }
+
       } catch (e) {
         //If user do not have permission to acessing the API, send a 401 response with error message
         res.json(401, {

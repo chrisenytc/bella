@@ -1,7 +1,7 @@
 {
   "name": "bella",
   "description": "An API Authentication for node.js",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "homepage": "https://github.com/chrisenytc/bella",
   "author": {
     "name": "Christopher EnyTC",
@@ -29,7 +29,8 @@
     "test": "NODE_ENV=test grunt test"
   },
   "dependencies": {
-    "nina": "~0.1.1"
+    "livia-algorithm": "~0.1.2",
+    "underscore": "~1.6.0"
   },
   "devDependencies": {
     "mocha": "~1.10.0",

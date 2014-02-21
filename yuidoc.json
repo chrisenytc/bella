@@ -1,7 +1,7 @@
 {
     "name": "Bella API",
     "description": "Bella API: An API Authentication for node.js",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "url": "https://github.com/chrisenytc/bella",
     "options": {
         "outdir": "./docs",

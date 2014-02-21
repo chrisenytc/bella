@@ -2,7 +2,7 @@
     "project": {
         "name": "Bella API",
         "description": "Bella API: An API Authentication for node.js",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "url": "https://github.com/chrisenytc/bella"
     },
     "files": {
@@ -11,6 +11,15 @@
             "modules": {},
             "classes": {
                 "Bella": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/generator.js": {
+            "name": "lib/generator.js",
+            "modules": {},
+            "classes": {
+                "Generator": 1
             },
             "fors": {},
             "namespaces": {}
@@ -28,6 +37,17 @@
             "extension_for": [],
             "file": "lib/bella.js",
             "line": 18
+        },
+        "Generator": {
+            "name": "Generator",
+            "shortname": "Generator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/generator.js",
+            "line": 19
         }
     },
     "classitems": [
@@ -136,6 +156,43 @@
                 "type": "Function"
             },
             "class": "Bella"
+        },
+        {
+            "file": "lib/generator.js",
+            "line": 37,
+            "description": "Method responsible for generate a authkey",
+            "example": [
+                "\n\n    generator.generate(['hashList'], 'example.com', '127.0.0.1', 19);"
+            ],
+            "itemtype": "method",
+            "name": "generate",
+            "params": [
+                {
+                    "name": "keyList",
+                    "description": "List of existing authkeys",
+                    "type": "Array"
+                },
+                {
+                    "name": "domain",
+                    "description": "The client domain",
+                    "type": "String"
+                },
+                {
+                    "name": "ip",
+                    "description": "The client ip",
+                    "type": "String"
+                },
+                {
+                    "name": "infinityConstant",
+                    "description": "The Livia Algorithm infinityConstant",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Returns a authkey",
+                "type": "String"
+            },
+            "class": "Generator"
         }
     ],
     "warnings": []

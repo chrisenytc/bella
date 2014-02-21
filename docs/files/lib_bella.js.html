@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.3.0</em>
+            <em>API Docs for: 0.4.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,6 +42,8 @@
             <ul id="api-classes" class="apis classes">
             
                 <li><a href="../classes/Bella.html">Bella</a></li>
+            
+                <li><a href="../classes/Generator.html">Generator</a></li>
             
             </ul>
 
@@ -100,7 +102,7 @@
  * Module Dependencies
  */
 
-var nina = require(&#x27;nina&#x27;);
+var generator = require(&#x27;./generator.js&#x27;);
 var users = [];
 
 /**
@@ -195,7 +197,7 @@ exports.create = function create(domain, ip, cb) {
   //Fallback
   cb = cb || function () {};
   //Make a new access_token with this data
-  var access_token = nina.generate(null, domain, ip, 19092013);
+  var access_token = generator.generate(null, domain, ip, 19092013);
   //Create new User with this data
   var user = new this.Model({
     domain: domain,

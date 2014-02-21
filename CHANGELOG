@@ -1,3 +1,7 @@
+v0.4.0:
+  date: 2014-02-21
+  changes:
+    - Adding new implementation of authkey generator
 v0.3.0:
   date: 2014-01-29
   changes:

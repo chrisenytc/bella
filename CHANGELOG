@@ -1,3 +1,7 @@
+v0.4.1:
+  date: 2014-02-24
+  changes:
+    - Fixed handler error in #authenticate
 v0.4.0:
   date: 2014-02-21
   changes:

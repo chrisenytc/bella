@@ -1,7 +1,7 @@
 {
   "name": "bella",
   "description": "An API Authentication for node.js",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "homepage": "https://github.com/chrisenytc/bella",
   "author": {
     "name": "Christopher EnyTC",
@@ -41,8 +41,7 @@
     "grunt-mocha-cli": "~1.3.0",
     "load-grunt-tasks": "~0.2.0",
     "time-grunt": "~0.1.1",
-    "jshint-stylish": "~0.1.3",
-    "grunt-contrib-watch": "~0.5.0"
+    "jshint-stylish": "~0.1.3"
   },
   "keywords": ["api", "auth", "authentication", "token", "key"]
 }

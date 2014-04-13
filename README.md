@@ -9,7 +9,7 @@ Install the module with: `npm install bella`
 var bella = require('bella');
 //Express.js
 app.configure(function() {
-  app.use(bella.init(mongoose, {connection: conn, status: true, model: userModel}));
+  app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));
   app.use(bella.authenticate('user'));
 });
 ```
@@ -29,6 +29,7 @@ app.configure(function() {
 
 
 - **connection**: Mongoose connection
+- **uri**: Database uri e.g: `mongo://localhost/belladb`
 - **status**: if true required a property `status` with the value `true`
 - **model**: your custom mongoose user model
 
@@ -39,7 +40,7 @@ How to use this method
 
 ```javascript
 app.configure(function() {
-  app.use(bella.init(mongoose, {connection: conn, status: true, model: userModel}));
+  app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));
 });
 ```
 
@@ -115,7 +116,7 @@ How to use this method
 
 ```javascript
 app.configure(function() {
-   app.use(bella.init(mongoose, {connection: conn, status: true, model: userModel}));
+   app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));
    app.use(bella.authenticate('create_article'));
 });
 

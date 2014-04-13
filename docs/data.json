@@ -2,7 +2,7 @@
     "project": {
         "name": "Bella API",
         "description": "Bella API: An API Authentication for node.js",
-        "version": "0.4.0",
+        "version": "0.5.0",
         "url": "https://github.com/chrisenytc/bella"
     },
     "files": {
@@ -11,15 +11,6 @@
             "modules": {},
             "classes": {
                 "Bella": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
-        "lib/generator.js": {
-            "name": "lib/generator.js",
-            "modules": {},
-            "classes": {
-                "Generator": 1
             },
             "fors": {},
             "namespaces": {}
@@ -36,71 +27,58 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "lib/bella.js",
-            "line": 18
-        },
-        "Generator": {
-            "name": "Generator",
-            "shortname": "Generator",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "file": "lib/generator.js",
-            "line": 19
-        }
-    },
-    "classitems": [
-        {
-            "file": "lib/bella.js",
-            "line": 42,
-            "description": "Method responsible for initiating the module and set the Schema and create a model to be used by other methods.",
+            "line": 19,
+            "is_constructor": 1,
             "example": [
-                "\n\n    app.configure(function() {\n      app.use(bella.init(mongoose, conn, [{username: 'bella', password: 'test'}]));\n    });"
+                "\n\n    app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));"
             ],
-            "itemtype": "method",
-            "name": "init",
             "params": [
                 {
                     "name": "mongoose",
-                    "description": "Instance of Mongoose",
+                    "description": "Mongoose instance",
                     "type": "Object"
                 },
                 {
-                    "name": "conn",
-                    "description": "A mongoose connection",
-                    "type": "Object"
-                },
-                {
-                    "name": "usersList",
-                    "description": "A list of authorized users",
+                    "name": "options",
+                    "description": "Options for Bella",
                     "type": "Object"
                 }
             ],
             "return": {
                 "description": "Returns a middleware",
                 "type": "Function"
-            },
-            "class": "Bella"
-        },
+            }
+        }
+    },
+    "classitems": [
         {
             "file": "lib/bella.js",
-            "line": 90,
+            "line": 83,
             "description": "Method responsible for creating the access_tokens to be used by the authentication system",
             "example": [
-                "\n\n    bella.create('example.com', '127.0.0.1', function(err, access_token) {\n      console.log('Token: ' + access_token);\n    });"
+                "\n\n    bella.create(req.user, ['user', 'create_article'], '127.0.0.1', 'example.com', function(err, access_token) {\n      console.log('Token: ' + access_token);\n    });"
             ],
             "itemtype": "method",
             "name": "create",
             "params": [
                 {
-                    "name": "domain",
-                    "description": "A new Domain",
+                    "name": "user",
+                    "description": "A user",
+                    "type": "Object"
+                },
+                {
+                    "name": "permissions",
+                    "description": "A array list of permissions",
                     "type": "String"
                 },
                 {
                     "name": "ip",
                     "description": "A new Ip",
+                    "type": "String"
+                },
+                {
+                    "name": "domain",
+                    "description": "A new Domain",
                     "type": "String"
                 },
                 {
@@ -117,7 +95,7 @@
         },
         {
             "file": "lib/bella.js",
-            "line": 134,
+            "line": 131,
             "description": "Method responsible for removing users",
             "example": [
                 "\n\n    bella.remove('YOUR ACCESS TOKEN', function(err, access_token) {\n      console.log('Token: ' + access_token + 'Deleted');\n    });"
@@ -132,7 +110,7 @@
                 },
                 {
                     "name": "cb",
-                    "description": "A callback with the error and access_token",
+                    "description": "A callback with the error",
                     "type": "Function"
                 }
             ],
@@ -144,55 +122,25 @@
         },
         {
             "file": "lib/bella.js",
-            "line": 172,
-            "description": "Method responsible for authenticating access the API.\nOnly users with Access Token, Domain, IP, Username and Password authenticated can access the API.",
+            "line": 169,
+            "description": "Method responsible for authenticating access the API.\nOnly users with Access Token, Domain and IP authenticated can access the API.",
             "example": [
-                "\n\n    app.configure(function() {\n      app.use(bella.init(mongoose, conn));\n      app.use(bella.authenticate());\n    });\n\n    //OR\n\n    app.get('/users', bella.authenticate(), ctrl);"
+                "\n\n    app.configure(function() {\n      app.use(bella(mongoose, {connection: mongooseConnection, status: false, model: userModel}));\n      app.use(bella.authenticate());\n    });\n\n    //OR\n\n    app.get('/users', bella.authenticate('user'), ctrl);"
             ],
             "itemtype": "method",
             "name": "authenticate",
+            "params": [
+                {
+                    "name": "permission",
+                    "description": "The required permission",
+                    "type": "String"
+                }
+            ],
             "return": {
                 "description": "Returns a middleware",
                 "type": "Function"
             },
             "class": "Bella"
-        },
-        {
-            "file": "lib/generator.js",
-            "line": 37,
-            "description": "Method responsible for generate a authkey",
-            "example": [
-                "\n\n    generator.generate(['hashList'], 'example.com', '127.0.0.1', 19);"
-            ],
-            "itemtype": "method",
-            "name": "generate",
-            "params": [
-                {
-                    "name": "keyList",
-                    "description": "List of existing authkeys",
-                    "type": "Array"
-                },
-                {
-                    "name": "domain",
-                    "description": "The client domain",
-                    "type": "String"
-                },
-                {
-                    "name": "ip",
-                    "description": "The client ip",
-                    "type": "String"
-                },
-                {
-                    "name": "infinityConstant",
-                    "description": "The Livia Algorithm infinityConstant",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "Returns a authkey",
-                "type": "String"
-            },
-            "class": "Generator"
         }
     ],
     "warnings": []

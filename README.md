@@ -1,6 +1,6 @@
 # Bella [![Build Status](https://secure.travis-ci.org/chrisenytc/bella.png?branch=master)](https://travis-ci.org/chrisenytc/bella) [![Dependency Status](https://gemnasium.com/chrisenytc/bella.png)](https://gemnasium.com/chrisenytc/bella) [![NPM version](https://badge-me.herokuapp.com/api/npm/bella.png)](http://badges.enytc.com/for/npm/bella) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chrisenytc/bella/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
-> An API Authentication for node.js
+> A API Authentication for node.js
 
 ## Getting Started
 Install the module with: `npm install bella`
@@ -9,57 +9,73 @@ Install the module with: `npm install bella`
 var bella = require('bella');
 //Express.js
 app.configure(function() {
-  app.use(bella.init(mongoose, conn, [{username: 'bella', password: 'test'}]));
-  app.use(bella.authenticate());
+  app.use(bella.init(mongoose, {connection: conn, status: true, model: userModel}));
+  app.use(bella.authenticate('user'));
 });
 ```
 
 ## Documentation
 
-#### .init(mongoose, conn, usersList)
+#### .init(mongoose, options)
 
 **Parameter**: `mongoose`
 **Type**: `Object`
 **Example**: `var mongoose = require('mongoose');`
 
-**Parameter**: `conn`
+
+**Parameter**: `options`
 **Type**: `Object`
-**Example**: `var conn = mongoose.connect('mongodb://localhost/testdb');`
+**Example**: `{connection: conn, status: true, model: userModel}`
 
-**Parameter**: `usersList`
-**Type**: `JSON Object`
-**Example**: `[{username: 'bella', password: 'test'}]`
 
-The 'init' is method responsible for initiating the module and set the Schema and create a model to be used by other methods.
+- **connection**: Mongoose connection
+- **status**: if true required a property `status` with the value `true`
+- **model**: your custom mongoose user model
+
+
+The `init` is method responsible for initiating the module and set the Schema and create a model to be used by other methods.
 
 How to use this method
 
 ```javascript
 app.configure(function() {
-  app.use(bella.init(mongoose, conn, [{username: 'bella', password: 'test'}]));
+  app.use(bella.init(mongoose, {connection: conn, status: true, model: userModel}));
 });
 ```
 
-#### .create(domain, ip, cb)
+#### .create(user, ip, domain, cb)
 
-**Parameter**: `domain`
-**Type**: `String`
-**Example**: `example.com`
+**Parameter**: `user`
+**Type**: `ObjectID`
+**Example**: `5349788398020b89c53c4297`
+
+
+**Parameter**: `permissions`
+**Type**: `Array`
+**Example**: `['create_article']`
+
 
 **Parameter**: `ip`
 **Type**: `String`
 **Example**: `127.0.0.1`
 
+
+**Parameter**: `domain`
+**Type**: `String`
+**Example**: `example.com`
+
+
 **Parameter**: `cb`
 **Type**: `Function`
 **Example**: `function(err, access_token) {};`
 
-The 'create' is method responsible for creating the access_tokens to be used by the authentication system.
+
+The `create` is method responsible for creating the access_tokens to be used by the authentication system.
 
 How to use this method
 
 ```javascript
-bella.create('example.com', '127.0.0.1', function(err, access_token) {
+bella.create(req.user, ['create_article'], '127.0.0.1', 'example.com', function(err, access_token) {
    console.log('Token: ' + access_token);
 });
 ```
@@ -69,9 +85,11 @@ bella.create('example.com', '127.0.0.1', function(err, access_token) {
 **Parameter**: `access_token`
 **Type**: `String`
 
+
 **Parameter**: `cb`
 **Type**: `Function`
 **Example**: `function(err, access_token) {};`
+
 
 The 'remove' method is responsible for removing users
 
@@ -83,22 +101,27 @@ bella.remove('YOUR ACCESS TOKEN', function(err, access_token) {
  });
 ```
 
-#### .authenticate()
+#### .authenticate(permission)
 
-The 'authenticate' method is responsible for authenticating access the API.
-Only users with Access Token, Domain, IP, Username and Password authenticated can access the API.
+**Parameter**: `permission`
+**Type**: `String`
+**Example**: `create_article`
+
+
+The `authenticate` method is responsible for authenticating access the API.
+Only users with Access Token, Domain, and IP authenticated can access the API.
 
 How to use this method
 
 ```javascript
 app.configure(function() {
-   app.use(bella.init(mongoose, conn));
-   app.use(bella.authenticate());
+   app.use(bella.init(mongoose, {connection: conn, status: true, model: userModel}));
+   app.use(bella.authenticate('create_article'));
 });
 
   //OR
 
-app.get('/users', bella.authenticate(), ctrl);
+app.get('/users', bella.authenticate('create_article'), ctrl);
 ```
 
 ## Contributing
@@ -109,7 +132,10 @@ Please submit all issues and pull requests to the [chrisenytc/bella](http://gith
 If you have any problem or suggestion please open an issue [here](https://github.com/chrisenytc/bella/issues).
 
 ## License
-Copyright (c) 2014 Christopher EnyTC
+
+The MIT License
+
+Copyright (c) 2014, Christopher EnyTC
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

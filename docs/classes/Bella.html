@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.4.0</em>
+            <em>API Docs for: 0.5.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -42,8 +42,6 @@
             <ul id="api-classes" class="apis classes">
             
                 <li><a href="../classes/Bella.html">Bella</a></li>
-            
-                <li><a href="../classes/Generator.html">Generator</a></li>
             
             </ul>
 
@@ -92,7 +90,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/lib_bella.js.html#l18"><code>lib&#x2F;bella.js:18</code></a>
+            Defined in: <a href="../files/lib_bella.js.html#l19"><code>lib&#x2F;bella.js:19</code></a>
         </div>
     
 
@@ -107,6 +105,146 @@
     
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Bella" class="method item">
+    <h3 class="name"><code>Bella</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>mongoose</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>options</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Function</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/lib_bella.js.html#l19"><code>lib&#x2F;bella.js:19</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">mongoose</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Mongoose instance</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">options</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Options for Bella</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Function</span>:
+                    
+                    <p>Returns a middleware</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -146,13 +284,6 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_init">init</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
                                 <a href="#method_remove">remove</a>
 
                                 
@@ -179,7 +310,17 @@
     <h3 class="name"><code>authenticate</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>permission</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -211,7 +352,7 @@
             
         
         
-        <a href="../files/lib_bella.js.html#l172"><code>lib&#x2F;bella.js:172</code></a>
+        <a href="../files/lib_bella.js.html#l169"><code>lib&#x2F;bella.js:169</code></a>
         
         </p>
 
@@ -223,10 +364,34 @@
 
     <div class="description">
         <p>Method responsible for authenticating access the API.
-Only users with Access Token, Domain, IP, Username and Password authenticated can access the API.</p>
+Only users with Access Token, Domain and IP authenticated can access the API.</p>
 
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">permission</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The required permission</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -251,13 +416,13 @@ Only users with Access Token, Domain, IP, Username and Password authenticated ca
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>app.configure(function() {
-  app.use(bella.init(mongoose, conn));
+  app.use(bella(mongoose, {connection: mongooseConnection, status: false, model: userModel}));
   app.use(bella.authenticate());
 });
 
 //OR
 
-app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
+app.get(&#39;/users&#39;, bella.authenticate(&#39;user&#39;), ctrl);</code></pre>
 
             </div>
         </div>
@@ -274,13 +439,25 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
             
                 <li class="arg">
                     
-                        <code>domain</code>
+                        <code>user</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>permissions</code>
                     
                 </li>
             
                 <li class="arg">
                     
                         <code>ip</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>domain</code>
                     
                 </li>
             
@@ -323,7 +500,7 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
             
         
         
-        <a href="../files/lib_bella.js.html#l90"><code>lib&#x2F;bella.js:90</code></a>
+        <a href="../files/lib_bella.js.html#l83"><code>lib&#x2F;bella.js:83</code></a>
         
         </p>
 
@@ -346,14 +523,30 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
             
                 <li class="param">
                     
-                        <code class="param-name">domain</code>
+                        <code class="param-name">user</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A user</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">permissions</code>
                         <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>A new Domain</p>
+                        <p>A array list of permissions</p>
 
                     </div>
 
@@ -370,6 +563,22 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
 
                     <div class="param-description">
                         <p>A new Ip</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">domain</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A new Domain</p>
 
                     </div>
 
@@ -417,170 +626,8 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>bella.create(&#39;example.com&#39;, &#39;127.0.0.1&#39;, function(err, access_token) {
+                <pre class="code prettyprint"><code>bella.create(req.user, [&#39;user&#39;, &#39;create_article&#39;], &#39;127.0.0.1&#39;, &#39;example.com&#39;, function(err, access_token) {
   console.log(&#39;Token: &#39; + access_token);
-});</code></pre>
-
-            </div>
-        </div>
-    
-</div>
-
-                
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>mongoose</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>conn</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>usersList</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Function</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/lib_bella.js.html#l42"><code>lib&#x2F;bella.js:42</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Method responsible for initiating the module and set the Schema and create a model to be used by other methods.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">mongoose</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Instance of Mongoose</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">conn</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A mongoose connection</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">usersList</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A list of authorized users</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Function</span>:
-                    
-                    <p>Returns a middleware</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <pre class="code prettyprint"><code>app.configure(function() {
-  app.use(bella.init(mongoose, conn, [{username: &#39;bella&#39;, password: &#39;test&#39;}]));
 });</code></pre>
 
             </div>
@@ -641,7 +688,7 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
             
         
         
-        <a href="../files/lib_bella.js.html#l134"><code>lib&#x2F;bella.js:134</code></a>
+        <a href="../files/lib_bella.js.html#l131"><code>lib&#x2F;bella.js:131</code></a>
         
         </p>
 
@@ -687,7 +734,7 @@ app.get(&#39;/users&#39;, bella.authenticate(), ctrl);</code></pre>
                     
 
                     <div class="param-description">
-                        <p>A callback with the error and access_token</p>
+                        <p>A callback with the error</p>
 
                     </div>
 

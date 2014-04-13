@@ -1,7 +1,7 @@
-v0.4.1:
-  date: 2014-02-24
+v0.5.0:
+  date: 2014-04-13
   changes:
-    - Fixed handler error in #authenticate
+    - Adding new implementation of authentication
 v0.4.0:
   date: 2014-02-21
   changes:
@@ -9,12 +9,12 @@ v0.4.0:
 v0.3.0:
   date: 2014-01-29
   changes:
-    - Adding new implementation of authentication.
+    - Adding new implementation of authentication
 v0.2.0:
   date: 2013-12-10
   changes:
-    - Removing implementation of user control.
+    - Removing implementation of user control
 v0.1.0:
   date: 2013-12-05
   changes:
-    - Initial release.
+    - Initial release

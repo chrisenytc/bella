@@ -1,3 +1,7 @@
+v0.5.2:
+  date: 2014-04-16
+  changes:
+    - Adding new response payload
 v0.5.1:
   date: 2014-04-15
   changes:

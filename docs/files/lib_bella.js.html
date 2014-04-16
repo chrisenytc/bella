@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.5.1</em>
+            <em>API Docs for: 0.5.2</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -288,8 +288,14 @@ exports.authenticate = function authenticate(permission) {
                 msg = msg.message;
             }
             res.jsonp(401, {
-                message: &#x27;Bad Authentication. You do not have permission to access the API.&#x27;,
-                error: msg
+                metadata: {
+                    status: 401,
+                    msg: &#x27;Unauthorized&#x27;
+                },
+                response: {
+                    msg: &#x27;Bad Authentication. You do not have permission to access the API.&#x27;,
+                    error: msg
+                }
             });
         }
 

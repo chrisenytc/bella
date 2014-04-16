@@ -1,3 +1,7 @@
+v0.5.1:
+  date: 2014-04-15
+  changes:
+    - Fixed error in bella prototype
 v0.5.0:
   date: 2014-04-13
   changes:

@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.5.0</em>
+            <em>API Docs for: 0.5.1</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -416,7 +416,7 @@ Only users with Access Token, Domain and IP authenticated can access the API.</p
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>app.configure(function() {
-  app.use(bella(mongoose, {connection: mongooseConnection, status: false, model: userModel}));
+  app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));
   app.use(bella.authenticate());
 });
 

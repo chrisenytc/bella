@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.5.0</em>
+            <em>API Docs for: 0.5.1</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -159,9 +159,9 @@ exports.init = function Bella(mongoose, options) {
         }
     });
     //Set default permissions
-    this.enableStatus = options.status || false;
-    this.UserModel = options.model || db.model(&#x27;User&#x27;);
-    this.PermissionModel = db.model(&#x27;Permission&#x27;, PermissionSchema);
+    exports.enableStatus = options.status || false;
+    exports.UserModel = options.model || db.model(&#x27;User&#x27;);
+    exports.PermissionModel = db.model(&#x27;Permission&#x27;, PermissionSchema);
     //Return a middleware
     return function init(req, res, next) {
         next();
@@ -192,7 +192,7 @@ exports.create = function create(user, permissions, ip, domain, cb) {
     //Make a new access_token with this data
     var access_token = rack();
     //Create new User with this data
-    var permissionAuth = new this.PermissionModel({
+    var permissionAuth = new exports.PermissionModel({
         access_token: access_token,
         ip: ip,
         domain: domain,
@@ -236,7 +236,7 @@ exports.remove = function remove(access_token, cb) {
     cb = cb || function() {};
     //delete this user on database
     try {
-        this.PermissionModel.remove({
+        exports.PermissionModel.remove({
             access_token: access_token
         }, function(err) {
             //If error throw this error
@@ -261,7 +261,7 @@ exports.remove = function remove(access_token, cb) {
  * @example
  *
  *     app.configure(function() {
- *       app.use(bella(mongoose, {connection: mongooseConnection, status: false, model: userModel}));
+ *       app.use(bella.init(mongoose, {connection: conn, uri: dbUri, status: true, model: userModel}));
  *       app.use(bella.authenticate());
  *     });
  *
@@ -276,7 +276,7 @@ exports.remove = function remove(access_token, cb) {
 
 exports.authenticate = function authenticate(permission) {
     //Save this scope
-    var that = this;
+    var that = exports;
     // return a middleware
     return function authenticate(req, res, next) {
         //Callback

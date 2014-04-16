@@ -2,7 +2,7 @@
     "project": {
         "name": "Bella API",
         "description": "Bella API: A API Authentication for node.js",
-        "version": "0.5.2",
+        "version": "0.5.3",
         "url": "https://github.com/chrisenytc/bella"
     },
     "files": {

@@ -55,8 +55,14 @@ describe('bella module', function() {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(401, {
-                    message: 'Bad Authentication. You do not have permission to access the API.',
-                    error: 'access_token not found'
+                    metadata: {
+                        status: 401,
+                        msg: 'Unauthorized'
+                    },
+                    response: {
+                        msg: 'Bad Authentication. You do not have permission to access the API.',
+                        error: 'access_token not found'
+                    }
                 }, done);
         });
 
@@ -67,8 +73,14 @@ describe('bella module', function() {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(401, {
-                    message: 'Bad Authentication. You do not have permission to access the API.',
-                    error: 'access_token not found'
+                    metadata: {
+                        status: 401,
+                        msg: 'Unauthorized'
+                    },
+                    response: {
+                        msg: 'Bad Authentication. You do not have permission to access the API.',
+                        error: 'access_token not found'
+                    }
                 }, done);
         });
 
